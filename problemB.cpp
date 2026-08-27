@@ -33,23 +33,20 @@ Output: 2
 
 using namespace std;
 
-int calculateRooms(vector<pair<int, int>> &meetings, priority_queue<int> &heap)
+size_t calculateRooms(vector<pair<int, int>> &meetings)
 {
+  priority_queue<int> heap;
+
   int n = meetings.size();
   for (int i = 0; i < n; i++)
   {
-    while (!heap.empty())
+    if (!heap.empty())
     {
       if (meetings[i].second <= heap.top())
       {
         heap.pop();
       }
-      else
-      {
-        break;
-      }
     }
-
     heap.push(meetings[i].first);
   }
   return heap.size();
@@ -80,9 +77,7 @@ int main()
   sort(meetings.begin(), meetings.end(), [](const auto &a, const auto &b)
        { return a.second > b.second; });
 
-  priority_queue<int> heap;
-
-  int rooms = calculateRooms(meetings, heap);
+  int rooms = static_cast<int>(calculateRooms(meetings));
 
   cout << rooms << "\n";
 
