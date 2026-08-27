@@ -29,8 +29,31 @@ Output: 2
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
+
+int calculateRooms(vector<pair<int, int>> &meetings, priority_queue<int> &heap)
+{
+  int n = meetings.size();
+  for (int i = 0; i < n; i++)
+  {
+    while (!heap.empty())
+    {
+      if (meetings[i].second <= heap.top())
+      {
+        heap.pop();
+      }
+      else
+      {
+        break;
+      }
+    }
+
+    heap.push(meetings[i].first);
+  }
+  return heap.size();
+}
 
 int main()
 {
@@ -43,21 +66,23 @@ int main()
 
   cin >> m;
 
-  vector<pair<long long, long long>> meetings(m);
+  vector<pair<int, int>> meetings(m);
 
   for (int i = 0; i < m; i++)
   {
-
-    long long s, e;
+    int s, e;
 
     cin >> s >> e;
 
     meetings[i] = {s, e};
   }
 
-  // TODO: compute minimum number of rooms required
+  sort(meetings.begin(), meetings.end(), [](const auto &a, const auto &b)
+       { return a.second > b.second; });
 
-  int rooms = 0;
+  priority_queue<int> heap;
+
+  int rooms = calculateRooms(meetings, heap);
 
   cout << rooms << "\n";
 
