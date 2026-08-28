@@ -33,7 +33,7 @@ Output: 2
 
 using namespace std;
 
-size_t calculateRooms(vector<pair<int, int>> &meetings)
+size_t calculateRooms(vector<pair<long long, long long>> &meetings)
 {
   priority_queue<int> heap;
 
@@ -63,11 +63,11 @@ int main()
 
   cin >> m;
 
-  vector<pair<int, int>> meetings(m);
+  vector<pair<long long, long long>> meetings(m);
 
   for (int i = 0; i < m; i++)
   {
-    int s, e;
+    long long s, e;
 
     cin >> s >> e;
 

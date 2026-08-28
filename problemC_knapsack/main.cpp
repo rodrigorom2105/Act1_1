@@ -34,6 +34,28 @@ using namespace std;
 
 using ll = long long;
 
+long long calculateMax(vector<int> &t, vector<ll> &v, int T)
+{
+  int n = t.size();
+  vector<vector<int>> dp(n + 1, vector<int>(T + 1, 0));
+
+  for (int i = 1; i < n + 1; i++)
+  {
+    for (int j = 1; j < T + 1; j++)
+    {
+      int current = dp[i][j] = dp[i - 1][j];
+
+      if (t[i - 1] <= j)
+      {
+        int included = dp[i - 1][j - t[i - 1]] + v[i - 1];
+        dp[i][j] = max(current, included);
+      }
+    }
+  }
+
+  return dp[n][T];
+}
+
 int main()
 {
 
@@ -55,9 +77,7 @@ int main()
     cin >> t[i] >> v[i];
   }
 
-  // TODO: compute maximum value achievable within time T
-
-  ll best = 0;
+  ll best = calculateMax(t, v, T);
 
   cout << best << "\n";
 
