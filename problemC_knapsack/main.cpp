@@ -34,21 +34,21 @@ using namespace std;
 
 using ll = long long;
 
-long long calculateMax(vector<int> &t, vector<ll> &v, int T)
+long long calculateMax(const vector<int> &t, const vector<ll> &v, int T)
 {
   int n = t.size();
-  vector<vector<int>> dp(n + 1, vector<int>(T + 1, 0));
+  vector<vector<long long>> dp(n + 1, vector<long long>(T + 1, 0));
 
   for (int i = 1; i < n + 1; i++)
   {
     for (int j = 1; j < T + 1; j++)
     {
-      int current = dp[i][j] = dp[i - 1][j];
+      dp[i][j] = dp[i - 1][j];
 
       if (t[i - 1] <= j)
       {
-        int included = dp[i - 1][j - t[i - 1]] + v[i - 1];
-        dp[i][j] = max(current, included);
+        ll included = dp[i - 1][j - t[i - 1]] + v[i - 1];
+        dp[i][j] = max(dp[i][j], included);
       }
     }
   }
