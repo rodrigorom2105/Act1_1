@@ -28,58 +28,21 @@ Output: 2
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <queue>
-
-using namespace std;
-
-size_t calculateRooms(vector<pair<long long, long long>> &meetings)
-{
-  priority_queue<int> heap;
-
-  int n = meetings.size();
-  for (int i = 0; i < n; i++)
-  {
-    if (!heap.empty())
-    {
-      if (meetings[i].second <= heap.top())
-      {
-        heap.pop();
-      }
-    }
-    heap.push(meetings[i].first);
-  }
-  return heap.size();
-}
+#include "solution.h"
 
 int main()
 {
-
   ios::sync_with_stdio(false);
-
   cin.tie(nullptr);
 
   int m;
-
   cin >> m;
 
-  vector<pair<long long, long long>> meetings(m);
-
+  vector<pair<ll, ll>> meetings(m);
   for (int i = 0; i < m; i++)
-  {
-    long long s, e;
+    cin >> meetings[i].first >> meetings[i].second;
 
-    cin >> s >> e;
-
-    meetings[i] = {s, e};
-  }
-
-  sort(meetings.begin(), meetings.end(), [](const auto &a, const auto &b)
-       { return a.second > b.second; });
-
-  int rooms = static_cast<int>(calculateRooms(meetings));
-
-  cout << rooms << "\n";
+  cout << minRooms(meetings) << "\n";
 
   return 0;
 }
