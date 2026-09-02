@@ -1,4 +1,4 @@
-# Activity 1 — Algorithm Design & Analysis
+# Activity 1
 
 Three problems solved using divide-and-conquer, greedy, and dynamic programming strategies. Each problem lives in its own folder with a `solution.h` (algorithm logic), `main.cpp` (interactive stdin runner), and `tests/test.cpp` (3 hardcoded tests).
 
